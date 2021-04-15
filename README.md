@@ -28,11 +28,11 @@ For more information about API credentials see [here](https://dev.bandwidth.com/
 
 # Environmental Variables
 The sample app uses the below environmental variables.
-```java
-BANDWIDTH_ACCOUNT_ID                 // Your Bandwidth Account Id
-BANDWIDTH_USERNAME                   // Your Bandwidth API Username
-BANDWIDTH_PASSWORD                   // Your Bandwidth API Password
-BANDWIDTH_MESSAGING_APPLICATION_ID   // Your Messaging Application Id created in the dashboard
+```sh
+BW_ACCOUNT_ID                 # Your Bandwidth Account Id
+BW_USERNAME                   # Your Bandwidth API Username
+BW_PASSWORD                   # Your Bandwidth API Password
+BW_MESSAGING_APPLICATION_ID   # Your Messaging Application Id created in the dashboard
 ```
 
 # Callback URLs
@@ -46,8 +46,8 @@ Below are the callback paths:
 ## Ngrok
 
 A simple way to set up a local callback URL for testing is to use the free tool [ngrok](https://ngrok.com/).  
-After you have downloaded and installed `ngrok` run the following command to open a public tunnel to your port (`$PORT`)
+After you have downloaded and installed `ngrok` run the following command to open a public tunnel to your port (`$LOCAL_PORT`)
 ```cmd
-ngrok http $PORT
+ngrok http $LOCAL_PORT
 ```
-You can view your public URL at `http://127.0.0.1:{PORT}` after ngrok is running.  You can also view the status of the tunnel and requests/responses here.
+You can view your public URL at `http://127.0.0.1:{LOCAL_PORT}` after ngrok is running.  You can also view the status of the tunnel and requests/responses here.
