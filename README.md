@@ -29,6 +29,7 @@ The application will text the number `+19199994444` the words `Hello World!`.
 The other two endpoints are used for handling inbound and outbound webhooks from Bandwidth. In order to use the correct endpoints, you must check the "Use multiple callback URLs" box on the application page in Dashboard. Then in Dashboard, set the INBOUND CALLBACK to `/callbacks/inbound/messaging` and the STATUS CALLBACK to `/callbacks/outbound/messaging/status`. The same can be accomplished via the Dashboard API by setting InboundCallbackUrl and OutboundCallbackUrl respectively.
 
 Inbound callbacks are sent notifying you of a received message on a Bandwidth number, this app prints the phone numbers invloved, as well as the text received to the text file `inbound_message.txt`. Outbound callbacks are status updates for messages sent from a Bandwidth number and are logged in the text file `outbound_status.txt`.
+You can start the php server for this project using the command `php -S localhost:8000 -t public`.
 # Bandwidth
 
 In order to use the Bandwidth API users need to set up the appropriate application at the [Bandwidth Dashboard](https://dashboard.bandwidth.com/) and create API credentials.
