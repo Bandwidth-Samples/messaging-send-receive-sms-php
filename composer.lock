@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd279448d683a3d9b1b112c07f607b83",
+    "content-hash": "b23885572c2ea555afb30cc364cf21d4",
     "packages": [
         {
             "name": "apimatic/jsonmapper",
@@ -58,16 +58,16 @@
         },
         {
             "name": "bandwidth/sdk",
-            "version": "v2.14.0",
+            "version": "v7.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bandwidth/php-sdk.git",
-                "reference": "1f88cd2965aa059f648d542c0579b06842095b95"
+                "reference": "2cb201f424752a97943f35c262ba7ea3dfdff4e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bandwidth/php-sdk/zipball/1f88cd2965aa059f648d542c0579b06842095b95",
-                "reference": "1f88cd2965aa059f648d542c0579b06842095b95",
+                "url": "https://api.github.com/repos/Bandwidth/php-sdk/zipball/2cb201f424752a97943f35c262ba7ea3dfdff4e8",
+                "reference": "2cb201f424752a97943f35c262ba7ea3dfdff4e8",
                 "shasum": ""
             },
             "require": {
@@ -80,8 +80,7 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phan/phan": "^1.2",
-                "squizlabs/php_codesniffer": "^2.7"
+                "phpunit/phpunit": "^9"
             },
             "type": "library",
             "autoload": {
@@ -110,9 +109,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Bandwidth/php-sdk/issues",
-                "source": "https://github.com/Bandwidth/php-sdk/tree/v2.14.0"
+                "source": "https://github.com/Bandwidth/php-sdk/tree/v7.0.0"
             },
-            "time": "2020-12-09T15:42:09+00:00"
+            "time": "2021-07-26T17:10:29+00:00"
         },
         {
             "name": "fig/http-message-util",
