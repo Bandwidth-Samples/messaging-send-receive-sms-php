@@ -1,35 +1,49 @@
-# Messaging-Send-Receive-SMS-PHP
-<a href="http://dev.bandwidth.com"><img src="https://s3.amazonaws.com/bwdemos/BW-VMP.png"/></a>
-</div>
+# Messaging Send and Receive
+
+<a href="https://dev.bandwidth.com/docs/messaging/quickStart">
+  <img src="./icon-messaging.svg" title="Messaging Quick Start Guide" alt="Messaging Quick Start Guide"/>
+</a>
 
  # Table of Contents
 
 <!-- TOC -->
 
-- [Messaging-Send-Receive-SMS-PHP](#Messaging-Send-Receive-SMS-PHP)
 - [Description](#description)
 - [Bandwidth](#bandwidth)
 - [Environmental Variables](#environmental-variables)
+- [Running the Application](#running-the-application)
 - [Callback URLs](#callback-urls)
     - [Ngrok](#ngrok)
 
 <!-- /TOC -->
 
 # Description
-A sample PHP application that demonstrates a server capable of sending and recieving SMS messages.
-Using a tool capable of making POST requests (Postman), send a POST request to the app's endpoint `/callbacks/outbound/messaging` with a json body like:
+
+This sample app sends and receives SMS and MMS messages.
+
+Using a tool capable of making POST requests such as [Postman](https://www.postman.com/), send a `POST` request to the `/messages` endpoint with a json body containing the `to` and `text` fields. The `to` field should be an E.164 formatted phone number.
+
 ```json
 {
-  "to": "+19199994444",
-  "text":"Hello World!"
+  "to": "+19195551234",
+  "text": "Hello World!"
 }
 ```
-The application will text the number `+19199994444` the words `Hello World!`.
 
-The other two endpoints are used for handling inbound and outbound webhooks from Bandwidth. In order to use the correct endpoints, you must check the "Use multiple callback URLs" box on the application page in Dashboard. Then in Dashboard, set the INBOUND CALLBACK to `/callbacks/inbound/messaging` and the STATUS CALLBACK to `/callbacks/outbound/messaging/status`. The same can be accomplished via the Dashboard API by setting InboundCallbackUrl and OutboundCallbackUrl respectively.
+The example above will text the number `+19195551234` the words `Hello World!`. To send an MMS, add a `media` field with a list of media URLs:
 
-Inbound callbacks are sent notifying you of a received message on a Bandwidth number, this app prints the phone numbers invloved, as well as the text received to the text file `inbound_message.txt`. Outbound callbacks are status updates for messages sent from a Bandwidth number and are logged in the text file `outbound_status.txt`.
-You can start the php server for this project using the command `php -S localhost:8000 -t public`.
+```json
+{
+  "to": "+19195551234",
+  "text": "Hello World!",
+  "media": ["https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg"]
+}
+```
+
+The other two endpoints are used for handling inbound and outbound webhooks from Bandwidth. In order to use the correct endpoints, you must check the "Use multiple callback URLs" box on the application page in Dashboard. Then in Dashboard, set the INBOUND CALLBACK to `/callbacks/inbound/messaging` and the STATUS CALLBACK to `/callbacks/outbound/messaging/status`. The same can be accomplished via the Dashboard API by setting `InboundCallbackUrl` and `OutboundCallbackUrl` respectively.
+
+Inbound callbacks are sent notifying you of a received message on a Bandwidth number. This app prints the phone numbers involved and the text received, and saves any media attached to the message to a `media` folder in the project. Outbound callbacks are status updates for messages sent from a Bandwidth number, this app has a dedicated response for each type of status update.
+
 # Bandwidth
 
 In order to use the Bandwidth API users need to set up the appropriate application at the [Bandwidth Dashboard](https://dashboard.bandwidth.com/) and create API credentials.
@@ -41,19 +55,33 @@ For more information about API credentials see [here](https://dev.bandwidth.com/
 # Environmental Variables
 The sample app uses the below environmental variables.
 ```sh
-BW_ACCOUNT_ID                 # Your Bandwidth Account Id
-BW_USERNAME                   # Your Bandwidth API Username
-BW_PASSWORD                   # Your Bandwidth API Password
-BW_NUMBER                     # The Bandwidth phone number involved with this application
-BW_MESSAGING_APPLICATION_ID   # Your Messaging Application Id created in the dashboard
+BW_ACCOUNT_ID                        # Your Bandwidth Account Id
+BW_CLIENT_ID                         # Your Bandwidth API OAuth Client Id
+BW_CLIENT_SECRET                     # Your Bandwidth API OAuth Client Secret
+BW_NUMBER                            # The Bandwidth phone number involved with this application
+BW_MESSAGING_APPLICATION_ID          # Your Messaging Application Id created in the dashboard
+LOCAL_PORT                           # The port number you wish to run the sample on
+```
+
+# Running the Application
+
+To install the required packages for this app, run the command:
+
+```sh
+composer install
+```
+
+Use the following command to run the application:
+
+```sh
+composer start
 ```
 
 # Callback URLs
 
-For a detailed introduction to Bandwidth Callbacks see https://dev.bandwidth.com/guides/callbacks/callbacks.html
+For a detailed introduction, check out our [Bandwidth Messaging Callbacks](https://dev.bandwidth.com/docs/messaging/webhooks) page.
 
 Below are the callback paths:
-* `/callbacks/outbound/messaging` For Sending Text Messages
 * `/callbacks/outbound/messaging/status` For Outbound Status Callbacks
 * `/callbacks/inbound/messaging` For Inbound Message Callbacks
 
@@ -64,4 +92,4 @@ After you have downloaded and installed `ngrok` run the following command to ope
 ```cmd
 ngrok http $LOCAL_PORT
 ```
-You can view your public URL at `http://127.0.0.1:{LOCAL_PORT}` after ngrok is running.  You can also view the status of the tunnel and requests/responses here.
+You can view your public URL at `http://127.0.0.1:4040` after ngrok is running.  You can also view the status of the tunnel and requests/responses here. Once your public ngrok url has been created, use it as the base of the callback URLs in the messaging application created in the [Bandwidth](#bandwidth) section.
